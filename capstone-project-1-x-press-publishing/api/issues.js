@@ -4,6 +4,15 @@ const issuesRouter = express.Router({mergeParams: true});
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
+issuesRouter.param('issueId', (req, res, next, issueId) => {
+    const sql = 'SELECT * FROM Issue WHERE Issue.id = $issueId';
+    const values = 
+});
+
+
+
+
+
 issuesRouter.get('/', (req, res, next) => {
     const sql = 'SELECT * FROM Issue WHERE Issue.series_id = $seriesId';
     const values = {$seriesId: req.params.seriesId};
