@@ -6,7 +6,16 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 
 issuesRouter.param('issueId', (req, res, next, issueId) => {
     const sql = 'SELECT * FROM Issue WHERE Issue.id = $issueId';
-    const values = 
+    const values = {$issueId: issueId};
+    db.get(sql, values, (error, issue) => {
+        if (error) {
+            next(error);
+        } else if (issue) {
+            next();
+        } else {
+            res.sendStatus(400);
+        }
+    });
 });
 
 
